@@ -11,7 +11,7 @@
     <fruitType name="cotton"        mrMaterialQtyFx="3.43" />
     <fruitType name="dryGrass"      mrMaterialQtyFx="2.9" />
     <fruitType name="grass"         mrMaterialQtyFx="3.2" />
-    <fruitType name="GREENBEAN"     mrMaterialQtyFx="2.55" />
+    <fruitType name="greenbean"     mrMaterialQtyFx="2.55" />
     <fruitType name="maize"         mrMaterialQtyFx="1.8" />
     <fruitType name="oilseedRadish" mrMaterialQtyFx="0.0020" />
     <fruitType name="oat"           mrMaterialQtyFx="1.08" />

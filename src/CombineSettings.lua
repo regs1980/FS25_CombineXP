@@ -2,6 +2,7 @@
 ---@class CombineSettings
 CombineSettings = {}
 
+CombineSettings.name = g_currentModName
 local modSettingsDir = g_modSettingsDirectory
 CombineSettings.debug = true --false --
 local xpCombineSettings_mt = Class(CombineSettings)
@@ -28,37 +29,45 @@ function CombineSettings:load()
     if CombineSettings.debug then print("CombineSettings:load") end
 
     -- SaveSettings
-    -- TODO FSBaseMission.saveSavegame = Utils.appendedFunction(FSBaseMission.saveSavegame, CombineSettings.saveSettings)
+    FSCareerMissionInfo.saveToXMLFile = Utils.appendedFunction(FSCareerMissionInfo.saveToXMLFile, CombineSettings.saveSettings)
 
     -- Game Settings Menu
-    -- InGameMenuSettingsFrame.onFrameOpen = Utils.appendedFunction(InGameMenuSettingsFrame.onFrameOpen, CombineSettings.initGameSettingsGui)
+    InGameMenuSettingsFrame.onFrameOpen = Utils.appendedFunction(InGameMenuSettingsFrame.onFrameOpen, CombineSettings.initGameSettingsGui)
 
-    -- General Settings Menu
-    -- InGameMenuGeneralSettingsFrame.onFrameOpen = Utils.appendedFunction(InGameMenuGeneralSettingsFrame.onFrameOpen, CombineSettings.initGeneralSettingsGui)
-    -- if g_server == nil then
-    --     InGameMenuGeneralSettingsFrame.onFrameClose = Utils.appendedFunction(InGameMenuGeneralSettingsFrame.onFrameClose, CombineSettings.saveCfg)
-    -- end
 end
 
 function CombineSettings:initGameSettingsGui()
     if CombineSettings.debug then print("CombineSettings:initGameSettingsGui") end
     if self.combineGameplay == nil then
+
+        -- Section Header
+        local title = self.gameSettingsLayout.elements[7]:clone()
+        title:applyProfile("fs25_settingsSectionHeader", true)
+        title:setText(CombineSettings.modTitle)
+        title.focusChangeData={}
+        title.focusId = FocusManager.serveAutoFocusId()
+
+        self.gameSettingsLayout:addElement(title)
+
+        local target = g_combinexp
+
         --- Create Gameplay Element
-        self.combineGameplay = self.economicDifficulty:clone()
+        local optionClone = self.economicDifficulty:clone()
+        optionClone.target = target
+        optionClone.onClickCallback = CombineSettings.onSettingsStateChanged
+        optionClone.buttonLRChange = CombineSettings.onSettingsStateChanged
+        optionClone.texts[1] = CombineSettings:getText("gameplayArcade")
+        optionClone.texts[2] = CombineSettings:getText("gameplayNormal")
+        optionClone.texts[3] = CombineSettings:getText("gameplayRealistic")
 
-        self.combineGameplay.target = false
-        self.combineGameplay.id = "combineGameplay"
-        self.combineGameplay.onClickCallback = CombineSettings.onSettingsStateChanged
-        self.combineGameplay.texts[1] = g_i18n:getText("gameplayArcade")
-        self.combineGameplay.texts[2] = g_i18n:getText("gameplayNormal")
-        self.combineGameplay.texts[3] = g_i18n:getText("gameplayRealistic")
-
-        local settingTitle = self.combineGameplay.elements[4]
-        local toolTip = self.combineGameplay.elements[6]
-
-        settingTitle:setText(g_i18n:getText('combineGameplaySetting'))
-        -- toolTip:setText(g_i18n:getText('combineGameplayTooltip'))
-        
+        self.combineGameplay = optionClone:clone()
+        CombineSettings:addOptionToLayout(
+            self.gameSettingsLayout,
+            self.combineGameplay,
+            "combineGameplay",
+            "combineGameplaySetting",
+            self.gameSettingsLayout.elements[5]
+        )
         local gameplay = 1
         if g_combinexp.powerBoost == xpCombine.powerBoostNormal then
             gameplay = 2
@@ -68,46 +77,41 @@ function CombineSettings:initGameSettingsGui()
         self.combineGameplay:setState(gameplay)
 
         --- Create PowerSetting Element
-        self.combinePower = self.checkTraffic:clone()
-        self.combinePower.target = false
-        self.combinePower.id = "combinePower"
-        self.combinePower.onClickCallback = CombineSettings.onSettingsStateChanged
-        self.combinePower.texts[1] = g_i18n:getText("ui_off")
-        self.combinePower.texts[2] = g_i18n:getText("ui_on")
-
-        settingTitle = self.combinePower.elements[4]
-        toolTip = self.combinePower.elements[6]
-
-        settingTitle:setText(g_i18n:getText('combinePowerSetting'))
-        -- toolTip:setText(g_i18n:getText('combinePowerTooltip'))
-
-        self.combinePower:setIsChecked(g_combinexp.powerDependantSpeed.isActive)
+        optionClone = self.checkTraffic:clone()
+        optionClone.target = target
+        optionClone.onClickCallback = CombineSettings.onSettingsStateChanged
+        optionClone.buttonLRChange = CombineSettings.onSettingsStateChanged
+        optionClone.texts[1] = g_i18n:getText("ui_off")
+        optionClone.texts[2] = g_i18n:getText("ui_on")
+        self.combinePower = optionClone:clone()
+        CombineSettings:addOptionToLayout(
+            self.gameSettingsLayout,
+            self.combinePower,
+            "combinePower",
+            "combinePowerSetting",
+            self.gameSettingsLayout.elements[5]
+        )
+        self.combinePower:setIsChecked(g_combinexp.powerDependantSpeed.isActive, true)
+        self.combinePower:updateSelection() -- Required to prevent GUI misbehavior when initialized to true
 
         --- Create Daytime Setting Element
-        self.combineDaytime = self.combinePower:clone()
-        self.combineDaytime.target = false
-        self.combineDaytime.id = "combineDaytime"
-        self.combineDaytime.onClickCallback = CombineSettings.onSettingsStateChanged
-        self.combineDaytime.texts[1] = g_i18n:getText("ui_off")
-        self.combineDaytime.texts[2] = g_i18n:getText("ui_on")
+        optionClone = self.checkTraffic:clone()
+        optionClone.target = target
+        optionClone.onClickCallback = CombineSettings.onSettingsStateChanged
+        optionClone.buttonLRChange = CombineSettings.onSettingsStateChanged
+        optionClone.texts[1] = g_i18n:getText("ui_off")
+        optionClone.texts[2] = g_i18n:getText("ui_on")
+        self.combineDaytime = optionClone:clone()
+        CombineSettings:addOptionToLayout(
+            self.gameSettingsLayout,
+            self.combineDaytime,
+            "combineDaytime",
+            "combineDaytimeSetting",
+            self.gameSettingsLayout.elements[5]
+        )
+        self.combineDaytime:setIsChecked(g_combinexp.timeDependantSpeed.isActive, true)
+        self.combineDaytime:updateSelection() -- Required to prevent GUI misbehavior when initialized to true
 
-        settingTitle = self.combineDaytime.elements[4]
-        toolTip = self.combineDaytime.elements[6]
-
-        settingTitle:setText(g_i18n:getText('combineDaytimeSetting'))
-        -- toolTip:setText(g_i18n:getText('combineDaytimeTooltip'))
-
-        self.combineDaytime:setIsChecked(g_combinexp.timeDependantSpeed.isActive)
-
-        --- Create Menu Elements
-        local title = TextElement.new()
-        title:applyProfile("settingsMenuSubtitle", true)
-        title:setText(CombineSettings.modTitle)
-
-        self.gameSettingsLayout:addElement(title)
-        self.gameSettingsLayout:addElement(self.combineGameplay)
-        self.gameSettingsLayout:addElement(self.combinePower)
-        self.gameSettingsLayout:addElement(self.combineDaytime)
         self.gameSettingsLayout:invalidateLayout()
     end
 end
@@ -154,4 +158,35 @@ function CombineSettings:onSettingsStateChanged(state, element, isChangedUp)
         g_combinexp.timeDependantSpeed.isActive = element:getIsChecked()
     end
     g_client:getServerConnection():sendEvent(xpCombineEvent.new(g_combinexp.powerBoost, g_combinexp.powerDependantSpeed.isActive, g_combinexp.timeDependantSpeed.isActive))
+end
+
+
+function CombineSettings:addOptionToLayout(gameSettingsLayout, cloneElement, id, textId, settingsClone)
+    cloneElement.id = id
+
+    local toolTip = cloneElement.elements[1]
+
+    toolTip.text = CombineSettings:getText(string.gsub(textId, "Setting", "Tooltip"))
+    toolTip.sourceText = CombineSettings:getText(string.gsub(textId, "Setting", "Tooltip"))
+
+    local optionTitle = settingsClone.elements[2]:clone()
+    optionTitle.id = id.."Title"
+    optionTitle:applyProfile("fs25_settingsMultiTextOptionTitle", true)
+    optionTitle:setText(CombineSettings:getText(textId))
+
+    local optionContainer = settingsClone:clone()
+    optionContainer.id = id.."Container"
+
+    optionContainer:applyProfile("fs25_multiTextOptionContainer", true)
+    for key, v in pairs(optionContainer.elements) do
+        optionContainer.elements[key] = nil
+    end
+
+    optionContainer:addElement(optionTitle)
+    optionContainer:addElement(cloneElement)
+    gameSettingsLayout:addElement(optionContainer)
+end
+
+function CombineSettings:getText(key)
+    return g_i18n.modEnvironments[CombineSettings.name].texts[key]
 end
