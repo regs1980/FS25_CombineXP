@@ -5,7 +5,11 @@
         basePerf=max Ha per Hour wanted in 100% fertilized Wheat: 884 => 8.84 ha/h
         when basePerf=0 xpCombine will compute a value based on machine hp (1 * hp)
         powerBoost value between 0 and 100: 0 => no power boost, max load = 100% ; 20 => 20% power boost, max load = 120%
+        hud xOffset and yOffset are used to adjust the position of the combineXP hud elements on screen.
+         - xOffset: positive value moves the hud to the left
+         - yOffset: positive value moves the hud to the top
     -->
+    <hud xOffset="0" yOffset="100" />
     <vehicles powerBoost="20">
         <vehicle xmlPath="data/vehicles/andersonGroup/bioBalerWB55/bioBalerWB55.xml" basePerf="0"/>
         <vehicle xmlPath="data/vehicles/caseIH/a8800MR/a8800MR.xml" basePerf="165"/>

@@ -19,7 +19,7 @@ end
 
 -- called after the map is async loaded from :load. has :loadMapData calls. NOTE: self.xmlFile is also deleted here. (Is map.xml)
 local function loadedMission(mission, node)
-    print("loadedMission(mission, superFunc, node)")
+    --print("loadedMission(mission, superFunc, node)")
     if not isEnabled() then
         return
     end
@@ -32,7 +32,7 @@ local function loadedMission(mission, node)
 end
 
 local function load(mission)
-    print("load(mission)")
+    --print("load(mission)")
     assert(combinexp == nil)
 
     combinexp = CombineXP:new(mission, g_i18n, g_inputBinding, g_gui, g_soundManager, modDirectory, modName)
@@ -44,7 +44,7 @@ local function load(mission)
 end
 
 local function validateTypes(manager)
-    print("validateTypes()")
+    --print("validateTypes()")
     CombineXP.installSpecializations(manager, g_specializationManager, modDirectory, modName)
 end
 
@@ -68,7 +68,7 @@ local function unload()
 end
 
 local function init()
-    print("init()")
+    --print("init()")
     FSBaseMission.delete = Utils.appendedFunction(FSBaseMission.delete, unload)
     -- FSBaseMission.loadMapFinished = Utils.prependedFunction(FSBaseMission.loadMapFinished, loadedMap)
 

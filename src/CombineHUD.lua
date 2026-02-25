@@ -58,10 +58,7 @@ function CombineHUD.new(speedMeter, modDirectory, uiFilename)
     instance.modDirectory = modDirectory
     instance.speedMeter = speedMeter
     instance.uiFilename = uiFilename
-	instance.baseLocation = {
-		xOffset = 0,
-		yOffset = 0
-	}
+	instance.baseLocation = {xOffset=0, yOffset=100}
 
     instance.tonPerHour = 0.
     instance.engineLoad = 0.
@@ -79,7 +76,7 @@ function CombineHUD:delete()
 end
 
 function CombineHUD:load()
-    print("CombineHUD:load")
+    --print("CombineHUD:load")
     self.uiScale = g_gameSettings.uiScale
 
     if g_languageShort == "fr" then
@@ -116,11 +113,11 @@ end
 function CombineHUD:createElement(position, size, uvDimensions, colors)
 	-- local x, y = self:scalePixelValuesToScreenVector(table.unpack(position))
 	-- local width, height = self:scalePixelValuesToScreenVector(table.unpack(size))
-    print("createElement")
+    --print("createElement")
     local x, y = self.speedMeter:scalePixelValuesToScreenVector(table.unpack(position))
-    print("x,y"..tostring(x)..","..tostring(y))
+    --print("x,y"..tostring(x)..","..tostring(y))
 	local width, height = self.speedMeter:scalePixelValuesToScreenVector(table.unpack(size))
-    print("width,height"..tostring(width)..","..tostring(height))
+    --print("width,height"..tostring(width)..","..tostring(height))
 	local overlay = Overlay.new(self.uiFilename, g_currentMission.hud.speedMeter.speedBg.x, g_currentMission.hud.speedMeter.speedBg.y, width, height)
 	overlay.isVisible = true
 	local element = HUDElement.new(overlay)
@@ -132,7 +129,7 @@ function CombineHUD:createElement(position, size, uvDimensions, colors)
 end
 
 function CombineHUD:createElements()
-    print("CombineHUD:createElements")
+    --print("CombineHUD:createElements")
     -- local rightX = 1 - g_safeFrameOffsetX -- right of screen.
     -- local bottomY = g_safeFrameOffsetY
 
@@ -263,6 +260,8 @@ end
 function CombineHUD:drawText()
     -- print("CombineHUD:drawText")
 
+    self.baseLocation = { xOffset=g_combinexp.hudOffset.xOffset, yOffset=g_combinexp.hudOffset.yOffset }
+    
     local _, paddingHeight = self:scalePixelToScreenVector(CombineHUD.SIZE.BOX_PADDING)
     local iconMarginWidth, _ = self:scalePixelToScreenVector(CombineHUD.SIZE.ICON_MARGIN)
     local iconSmallMarginWidth, _ = self:scalePixelToScreenVector(CombineHUD.SIZE.ICON_SMALL_MARGIN)
@@ -277,6 +276,9 @@ function CombineHUD:drawText()
     -- print("x:"..tostring(g_currentMission.hud.speedMeter.x))
     -- print("workingHoursTextOffsetX:"..tostring(g_currentMission.hud.speedMeter.workingHoursTextOffsetX))
     local posX, posY = g_currentMission.hud.speedMeter.speedBg.x + 2 * g_currentMission.hud.speedMeter.workingHoursTextOffsetX, g_currentMission.hud.speedMeter.speedBg.y + g_currentMission.hud.speedMeter.speedGaugeCenterOffsetY - 3 * g_currentMission.hud.speedMeter.workingHoursTextOffsetY
+	local xOffset, yOffset = self.speedMeter:scalePixelValuesToScreenVector(self.baseLocation.xOffset, self.baseLocation.yOffset)
+    posX = xOffset + posX
+    posY = yOffset + posY
     local textX = posX + textMarginWidth
     local textY = posY - paddingHeight
     -- renderText(0.925 * textX, textY, textSize, "/") -- OK only at 100% scale

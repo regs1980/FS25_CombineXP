@@ -6,7 +6,7 @@ local modSettingsDir = g_modSettingsDirectory
 local CombineXP_mt = Class(CombineXP)
 
 function CombineXP:new(mission, i18n, inputBinding, gui, soundManager, modDirectory, modName)
-    print("CombineXP:new")
+    --print("CombineXP:new")
     local self = setmetatable({}, CombineXP_mt)
 
     self.isServer = mission:getIsServer()
@@ -38,7 +38,7 @@ end
 
 
 function CombineXP:loadMaterialQtyFx()
-    print("CombineXP:loadMaterialQtyFx")
+    --print("CombineXP:loadMaterialQtyFx")
     local xmlFile = nil
 
     if modDirectory then
@@ -86,7 +86,7 @@ function CombineXP:loadMaterialQtyFx()
 end
 
 function CombineXP:loadDependantSpeed()
-    print("CombineXP:loadDependantSpeed")
+    --print("CombineXP:loadDependantSpeed")
     local xmlFile = nil
 
     if modDirectory then
@@ -98,9 +98,13 @@ function CombineXP:loadDependantSpeed()
         end
     end
     if xmlFile and g_combinexp then
-        print("loadDependantSpeed")
+        --print("loadDependantSpeed")
         local powerBoost = Utils.getNoNil(tonumber(getXMLString(xmlFile, "combineXP.vehicles"..string.format("#powerBoost"))), 20)
         g_combinexp.powerBoost = math.clamp(powerBoost, 0, 100)
+        local xOffset = Utils.getNoNil(tonumber(getXMLString(xmlFile, "combineXP.hud"..string.format("#xOffset"))), 0)
+        local yOffset = Utils.getNoNil(tonumber(getXMLString(xmlFile, "combineXP.hud"..string.format("#yOffset"))), 100)
+        -- Invert xOffset to move in the same direction as the original hud element (positive xOffset moves the hud to the right, which is positive direction on screen, but negative direction for the offset) 
+        g_combinexp.hudOffset = {xOffset=-xOffset, yOffset=yOffset}
         g_combinexp.powerDependantSpeed.isActive = Utils.getNoNil(getXMLBool(xmlFile, "combineXP.powerDependantSpeed" .. string.format("#isActive")), true)
         g_combinexp.timeDependantSpeed.isActive = Utils.getNoNil(getXMLBool(xmlFile, "combineXP.timeDependantSpeed" .. string.format("#isActive")), true)
         g_combinexp.timeDependantSpeed.cereal = AnimCurve.new(linearInterpolator1)
@@ -117,7 +121,7 @@ end
 
 -- @doc Copy default parameters from mod zip file to modSettings directory so end-user can edit it
 function CombineXP:copyCombineXPXML()
-    print("CombineXP:copyCombineXPXML")
+    --print("CombineXP:copyCombineXPXML")
     if modDirectory then
         local xmlFilePath = modSettingsDir.."combineXP.xml"
         if not fileExists(xmlFilePath) then
@@ -134,7 +138,7 @@ end
 
 ---Called when the player clicks the Start button
 function CombineXP:onMissionStart(mission)
-    print("CombineXP:onMissionStart")
+    --print("CombineXP:onMissionStart")
 
     CombineXP.loadMaterialQtyFx()
     CombineXP.loadDependantSpeed()
@@ -155,7 +159,7 @@ end
 
 ---Mission was loaded (without vehicles and items)
 function CombineXP:onMissionLoaded(mission)
-    print("CombineXP:onMissionLoaded")
+    --print("CombineXP:onMissionLoaded")
     CombineXP.copyCombineXPXML()    -- to be called on server
     self.hud:load()
     self.settings:load()
@@ -166,7 +170,7 @@ function CombineXP:update(dt)
 end
 
 function CombineXP.installSpecializations(manager, specializationManager, modDirectory, modName)
-    print("CombineXP.installSpecializations")
+    --print("CombineXP.installSpecializations")
     if manager.typeName == "vehicle" then
         specializationManager:addSpecialization("xpCombine", "xpCombine", Utils.getFilename("src/xpCombine.lua", modDirectory), nil)
         for typeName, typeEntry in pairs(g_vehicleTypeManager:getTypes()) do

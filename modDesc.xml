@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
-<modDesc descVersion="105">
+<modDesc descVersion="106">
     <author>yumi</author>
     <version>1.0.0.0</version>        
     <title>
@@ -13,7 +13,7 @@ New features:
 - Capability to activate combine and cutter independently as IRL
 - Harvesting speed limit based on material quantity gathered, crop type, combine performance (based on power) and crop moisture depending on time of the day
 - Display several data in HUD when harvesting: material capacity (T/h), combine load (%), instant yield (T/ha)
-Dedicated settings are available in Game settings to enable/disable specific behavior for your own convenience
+Dedicated settings are available in Game settings to enable/disable specific behavior for your own convenience and specifc parameters like HUD position can be adjusted in combineXP.xml file located in modSettings.
 ]]></en>
         <fr><![CDATA[
 Si vous en avez assez de moissonner n'importe quelle culture avec n'importe quelle moissonneuse à 10 km/h, ce mod est pour vous.
@@ -22,7 +22,7 @@ Nouvelles fonctionnalités:
 - Possibilité d'activer la moissonneuse-batteuse et la barre de coupe indépendamment comme IRL
 - Limite la vitesse de moisson en fonction de la quantité récoltée, du type de culture, des performances de la moissonneuse (basées sur sa puissance) et de l'humitidité de la culture en fonction de l'heure de la journée
 - Affiche différentes données dans le HUD lors de la récolte: quantité de récolte (T/h), charge de la moissonneuse (%), rendement instantané (T/ha)
-Des paramètres dédiés sont disponibles dans Paramètres du jeu pour activer/désactiver certains comportements à votre guise
+Des paramètres dédiés sont disponibles dans Paramètres du jeu pour activer/désactiver certains comportements à votre guise et certains paramètres comme la position du HUD peuvent être ajustés dans le fichier combineXP.xml situé dans modSettings.
 ]]></fr>
         <de><![CDATA[
 Wenn Sie es satt haben, das Feld mit einem beliebigen Mähdrescher bei 10 km/h zu ernten, ist dieser Mod genau das richtige für Sie.
@@ -31,7 +31,7 @@ Eigenschaften:
 - Mähdrescher und das Schneidwerk unabhängig voneinander wie in der Realität zu aktivieren
 - Erntegeschwindigkeitslimit basierend auf der gesammelten Materialmenge, der Ernteart, der Mähdrescherleistung (basierend auf der Gesamtleistung) und die Luftfeuchtigkeit der Ernte je nach Tageszeit
 - Zeigt Ihnen bei der Ernte mehrere Daten im HUD an: Materialkapazität (T/h), kombinierte Ladung (%), sofortiger Ertrag (T/ha)
-Dedizierte Einstellungen sind in den Spieleinstellungen verfügbar, um bestimmte Verhaltensweisen nach Ihren Wünschen zu aktivieren/deaktivieren.
+Dedizierte Einstellungen sind in den Spieleinstellungen verfügbar, um bestimmte Verhaltensweisen nach Ihren Wünschen zu aktivieren/deaktivieren und bestimmte Parameter wie die Position des HUD können in der combineXP.xml-Datei im Ordner modSettings angepasst werden.
 ]]></de>
         <ru><![CDATA[
 Если вам надоело убирать поле любым комбайном на скорости 10 км/ч, этот мод для вас.
@@ -40,7 +40,7 @@ Dedizierte Einstellungen sind in den Spieleinstellungen verfügbar, um bestimmte
 - Активировать комбайн и жатку независимо друг от друга как "в реальной жизни"(IRL)
 - Ограничение скорости сбора урожая в зависимости от количества собранного материала, типа урожая, производительности комбайна (в зависимости от мощности) и влажности урожая с модом Seasons
 - Отображает несколько данных в HUD во время уборки: производительность комбайна (т/ч), загрузка комбайна (%), текущая урожайность (т/га)
-Специальные настройки доступны в Настройки игры, чтобы включать/отключать определенное поведение по вашему усмотрению.
+Специальные настройки доступны в Настройки игры, чтобы включать/отключать определенное поведение по вашему усмотрению и определенные параметры, такие как положение HUD, могут быть отрегулированы в файле combineXP.xml, расположенном в modSettings.
 ]]></ru>
         <pl><![CDATA[
 Jeśli masz dość koszenia zbóż dowolnym kombajnem z prędkością 10 km/h, ten mod jest dla Ciebie.
@@ -49,7 +49,7 @@ Nowe funkcje:
 - Możliwość niezależnej aktywacji kombajnu i hederu/przystawki jak w prawdziwym życiu
 - Ograniczenie prędkości koszenia w oparciu o ilość zbieranego materiału, rodzaj uprawy, wydajność kombajnu (w oparciu o moc) i wilgotność plonu w zależności od pory dnia
 - Wyświetlanie kilku danych na HUDzie podczas zbioru: wydajność zbioru (t/h), obciążenie kombajnu (%), ogólna wydajność (t/ha)
-Dedykowane ustawienia są dostępne w Ustawienia gry, aby włączać/wyłączać określone zachowania dla własnej wygody.
+Dedykowane ustawienia są dostępne w Ustawienia gry, aby włączać/wyłączać określone zachowania dla własnej wygody i określone parametry, takie jak pozycja HUD, mogą być dostosowane w pliku combineXP.xml znajdującym się w modSettings.
 ]]></pl>
         <br><![CDATA[
 Se você está cansado de colher qualquer lavoura com qualquer colheitadeira a 10 km / h, este modo é para você.
@@ -58,7 +58,7 @@ Novas características:
 - Capacidade de ativar a colheitadeira e o cortador independentemente como IRL
 - Limite de velocidade de colheita com base na quantidade de material coletado, tipo de cultura, desempenho da colheitadeira (baseado na sua potência) e a umidade da cultura dependendo da hora do dia
 - Exibe vários dados no HUD durante a colheita: capacidade de material (T/h), carga da colheitadeira (%), rendimento da lavoura (T/ha)
-
+Configurações dedicadas estão disponíveis nas Configurações do jogo para ativar/desativar comportamentos específicos para sua conveniência e parâmetros específicos, como a posição do HUD, podem ser ajustados no arquivo combineXP.xml localizado em modSettings.
 ]]></br>
         <it><![CDATA[
 Se sei stanco di raccogliere qualsiasi raccolto con qualsiasi mietitrebbia a 10 km/h, questa mod è per te.
@@ -67,7 +67,7 @@ Nuove caratteristiche:
 - Possibilità di attivare la mietitrebbia e la taglierina indipendentemente come IRL
 - Limite di velocità di raccolta in base alla quantità di materiale raccolto, al tipo di coltura, alle prestazioni della mietitrebbia (in base alla potenza) e all'umidità del raccolto a seconda dell'ora del giorno
 - Visualizza diversi dati nell'HUD durante la raccolta: capacità del materiale (T/h), carico della mietitrebbia (%), resa istantanea (T/ha)
-Impostazioni dedicate sono disponibili nelle Impostazioni di gioco per abilitare/disabilitare comportamenti specifici per la tua comodità.
+Impostazioni dedicate sono disponibili nelle Impostazioni di gioco per abilitare/disabilitare comportamenti specifici per la tua comodità e parametri specifici come la posizione dell'HUD possono essere regolati nel file combineXP.xml situato in modSettings.
 ]]></it>   
 	    <pt><![CDATA[
 Se estás cansado de ceifar as searas a 10 kph, este mod é para ti.
@@ -76,7 +76,7 @@ Novas funções:
 - Capacidade como na vida real de acionar o tambor e a barra de corte de maneira independente
 - Velocidade de ceifar limitada, baseada na quantidade de material recolhida, tipo de cultura, desempenho da ceifeira (basedo na potência) e humidade na seara dependendo da altura do dia
 - Exive vários dados no ecrã enquanto ceida: quantidade de material (T/h), carga da ceifeira (%), rendimento instantâneo (T/ha)
-Configurações dedicadas estão disponíveis nas Definições de Jogo para ativar/desativar comportamentos específicos para sua conveniência.
+Configurações dedicadas estão disponíveis nas Definições de Jogo para ativar/desativar comportamentos específicos para sua conveniência e parâmetros específicos como a posição do HUD podem ser ajustados no arquivo combineXP.xml localizado em modSettings.
 ]]></pt>	    
     </description>
     <iconFilename>icon_CombineXP.dds</iconFilename>

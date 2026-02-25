@@ -4,7 +4,7 @@ CombineSettings = {}
 
 CombineSettings.name = g_currentModName
 local modSettingsDir = g_modSettingsDirectory
-CombineSettings.debug = true --false --
+CombineSettings.debug = false --true --
 local xpCombineSettings_mt = Class(CombineSettings)
 
 ---Creates a new instance of the CombineSettings.

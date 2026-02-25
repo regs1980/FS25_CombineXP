@@ -187,6 +187,7 @@ function xpCombine:onLoad(savegame)
 
     spec.mrIsCombineSpeedLimitActive = false;
 
+    spec.mrGenuineSpeedLimit = 15.
     spec.speedLimit = 15.
     spec.lastRealArea = 0.
     spec.lastArea = 0.
@@ -430,7 +431,7 @@ function xpCombine:onUpdateTick(dt, isActiveForInput, isActiveForInputIgnoreSele
                         if predictAvgArea>1.5*maxAvgArea then
                             spec.speedLimit = math.max(2, math.min(0.95*spec.speedLimit, 0.9*avgSpeed*3.6))
                             predictLimitSet = true
-                            if xpCombine.debug then print("set speedLimit "..tostring(spec.speedLimit)) end
+                            if xpCombine.debug then print("set speedLimit "..tostring(spec.speedLimit).." | "..tostring(spec.mrGenuineSpeedLimit)) end
                             --print("predictAvgArea="..tostring(predictAvgArea) .. " - new speedLimit="..tostring(spec.speedLimit))
                         end
                     end
@@ -439,12 +440,12 @@ function xpCombine:onUpdateTick(dt, isActiveForInput, isActiveForInputIgnoreSele
                         if avgArea>(1.05*maxAvgArea) then
                             --reduce speedlimit
                             spec.speedLimit = math.max(2, math.min(spec.speedLimit, avgSpeed*3.6) - 10 * (1 - avgArea/maxAvgArea)^2); --0.1kph step --allow 5% margin to avoid "yo-yo" effect
-                            if xpCombine.debug then print("reduce speedlimit "..tostring(spec.speedLimit)) end
+                            if xpCombine.debug then print("reduce speedlimit "..tostring(spec.speedLimit).." | "..tostring(spec.mrGenuineSpeedLimit)) end
                         -- elseif (3.6*avgSpeed)>spec.speedLimit and avgArea<maxAvgArea then -- not limited by the engine, nor by the combine capacity
                         elseif avgArea<maxAvgArea then -- not limited by the engine, nor by the combine capacity
                             --increase speedlimit
                             spec.speedLimit = math.min(spec.mrGenuineSpeedLimit, spec.speedLimit + 0.1 * (maxAvgArea / avgArea)^3);
-                            if xpCombine.debug then print("increase speedlimit "..tostring(spec.speedLimit)) end
+                            if xpCombine.debug then print("increase speedlimit "..tostring(spec.speedLimit).." | "..tostring(spec.mrGenuineSpeedLimit)) end
                         end
                     end
                 end
@@ -492,13 +493,12 @@ function xpCombine:getSpeedLimit(superfunc, onlyIfWorking)
         local isTurnedOn = self_vehicle:getIsTurnedOn()
         if isTurnedOn then
             if g_combinexp.powerDependantSpeed.isActive then
-                spec_xpCombine.mrGenuineSpeedLimit = math.max(1.5 * limit, 18.)
                 if spec_xpCombine.speedLimit and spec_xpCombine.speedLimit > 0 then
                     limit = spec_xpCombine.speedLimit
                     -- if xpCombine.debug then print("speedLimit from materialQty: "..tostring(limit)) end
                 end
             else
-                spec_xpCombine.mrGenuineSpeedLimit = limit
+                limit = spec_xpCombine.mrGenuineSpeedLimit
             end
             spec_xpCombine.mrCombineLimiter.highMoisture = false
             local fruitType = g_fruitTypeManager:getFruitTypeIndexByFillTypeIndex(self_vehicle:getFillUnitFillType(spec_combine.fillUnitIndex))
