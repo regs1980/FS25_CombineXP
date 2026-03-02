@@ -31,9 +31,11 @@ function CombineSettings:load()
     -- SaveSettings
     FSCareerMissionInfo.saveToXMLFile = Utils.appendedFunction(FSCareerMissionInfo.saveToXMLFile, CombineSettings.saveSettings)
 
+end
+
+function CombineSettings.init()
     -- Game Settings Menu
     InGameMenuSettingsFrame.onFrameOpen = Utils.appendedFunction(InGameMenuSettingsFrame.onFrameOpen, CombineSettings.initGameSettingsGui)
-
 end
 
 function CombineSettings:initGameSettingsGui()
@@ -190,3 +192,5 @@ end
 function CombineSettings:getText(key)
     return g_i18n.modEnvironments[CombineSettings.name].texts[key]
 end
+
+CombineSettings.init()
